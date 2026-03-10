@@ -1,8 +1,10 @@
 #include <iostream>
+#include "Ciff.h"
 
 int main() 
 {
-    std::cout << "hello world";
+    Ciff();
+    Ciff::parse_ciff_file("proba");
 
     return 0;
 }
