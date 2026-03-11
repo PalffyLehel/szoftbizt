@@ -15,7 +15,8 @@ class CIFF:
             height_long=0,
             caption_string="",
             tags_list=None,
-            pixels_list=None
+            pixels_list=None,
+            error_message=""
     ):
         """
         Constructor for CIFF images
@@ -44,6 +45,7 @@ class CIFF:
         else:
             self._pixels = pixels_list
         self._is_valid = True
+        self._error_message = error_message
 
     #
     # Properties
@@ -166,6 +168,19 @@ class CIFF:
     @pixels.setter
     def pixels(self, value):
         self._pixels = value
+
+    @property
+    def error_message(self):
+        """
+        The parsed pixels
+
+        :return: list
+        """
+        return self._error_message
+
+    @error_message.setter
+    def error_message(self, value):
+        self._error_message = value
 
     #
     # Static methods
@@ -345,5 +360,6 @@ class CIFF:
 
         except Exception as e:
             new_ciff.is_valid = False
+            new_ciff.error_message = e
 
         return new_ciff
