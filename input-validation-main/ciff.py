@@ -249,6 +249,8 @@ class CIFF:
                 # Question: is this check necessary?
                 if new_ciff.content_size < 0 or new_ciff.content_size > 2 ** 64 - 1:
                     raise Exception("Content size not in given range")
+                if new_ciff.content_size == 0:
+                    raise Exception("Content size is 0")
 
                 # read the width
                 width = ciff_file.read(8)
@@ -265,6 +267,8 @@ class CIFF:
                 # Question: is this check necessary?
                 if new_ciff.width < 0 or new_ciff.width > 2 ** 64 - 1:
                     raise Exception("Width not in given range")
+                if new_ciff.width == 0:
+                    raise Exception("Width is 0")
 
                 # read the height
                 height = ciff_file.read(8)
@@ -281,6 +285,8 @@ class CIFF:
                 # Question: is this check necessary?
                 if new_ciff.height < 0 or new_ciff.height > 2 ** 64 - 1:
                     raise Exception("Height not in given range")
+                if new_ciff.height == 0:
+                    raise Exception("Height is 0")
 
                 # TODO: content size must equal width*height*3
                 width = int.from_bytes(width, "little")

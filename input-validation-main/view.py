@@ -124,7 +124,7 @@ class Window(Frame):
                         result_text.insert(END, f"{test_vector} is detected as VALID\n")
                     else:
                         print(ciff_file.error_message)
-                        result_text.insert(END, f"{test_vector} is detected as INVALID", ciff_file.error_message, "\n")
+                        result_text.insert(END, f"{test_vector} is detected as INVALID {ciff_file.error_message }\n")
                 except Exception as e:
                     result_text.insert(END, f"Error processing {test_vector}: {e}\n")
         except Exception as e:
