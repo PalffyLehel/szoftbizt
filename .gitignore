@@ -35,6 +35,8 @@
 *.out
 *.app
 
+Lab1_plusz/Resources
+
 ### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
