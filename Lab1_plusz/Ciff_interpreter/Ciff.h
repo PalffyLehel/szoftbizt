@@ -1,5 +1,6 @@
 #pragma once
 
+#include <algorithm>
 #include <iostream>
 #include <string>
 #include <list>
@@ -10,6 +11,9 @@
 class ciff
 {
 private:
+    static long get_long_from_little_endian(const char*);
+
+public:
     std::string magic;
     long header_size;
     long content_size;
@@ -18,10 +22,9 @@ private:
     std::string caption;
     std::list<std::string> tag_list;
     std::list<std::string> pixel_list;
+    bool is_valid;
+    std::string error_message;
 
-    static long get_long_from_little_endian(const char*);
-
-public:
     ciff();
     ciff(const std::string magic, const long header_size, const long content_size,
         const long width, const long height, const std::string caption,

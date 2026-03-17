@@ -2,7 +2,7 @@
 
 #include <string>
 
-extern "C" class ciff_exception
+class ciff_exception
 {
 public:
     std::string message;

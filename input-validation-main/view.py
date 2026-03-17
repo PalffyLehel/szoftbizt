@@ -4,7 +4,7 @@ from ciff import CIFF
 from os import listdir
 from os.path import join, extsep
 from PIL import Image, ImageTk
-
+from cpp_converter import get_ciff
 
 class Window(Frame):
     def __init__(self, master=None):
@@ -119,11 +119,10 @@ class Window(Frame):
                 key=lambda f: int(f.replace("test", "").rsplit(extsep, 1)[0].rsplit(None, 1)[-1])
             ):
                 try:
-                    ciff_file = CIFF.parse_ciff_file(join(test_vectors_path, test_vector))
+                    ciff_file = get_ciff(test_vector)
                     if ciff_file.is_valid:
                         result_text.insert(END, f"{test_vector} is detected as VALID\n")
                     else:
-                        print(ciff_file.error_message)
                         result_text.insert(END, f"{test_vector} is detected as INVALID {ciff_file.error_message }\n")
                 except Exception as e:
                     result_text.insert(END, f"Error processing {test_vector}: {e}\n")

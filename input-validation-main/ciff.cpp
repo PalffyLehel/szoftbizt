@@ -1,4 +1,3 @@
-#include "pch.h"
 #include "ciff.h"
 
 ciff::ciff()
