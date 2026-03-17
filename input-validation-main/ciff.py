@@ -15,7 +15,8 @@ class CIFF:
             height_long=0,
             caption_string="",
             tags_list=None,
-            pixels_list=None
+            pixels_list=None,
+            error_message=""
     ):
         """
         Constructor for CIFF images
@@ -44,6 +45,7 @@ class CIFF:
         else:
             self._pixels = pixels_list
         self._is_valid = True
+        self._error_message = error_message
 
     #
     # Properties
@@ -167,6 +169,19 @@ class CIFF:
     def pixels(self, value):
         self._pixels = value
 
+    @property
+    def error_message(self):
+        """
+        The parsed pixels
+
+        :return: list
+        """
+        return self._error_message
+
+    @error_message.setter
+    def error_message(self, value):
+        self._error_message = value
+
     #
     # Static methods
     #
@@ -234,6 +249,8 @@ class CIFF:
                 # Question: is this check necessary?
                 if new_ciff.content_size < 0 or new_ciff.content_size > 2 ** 64 - 1:
                     raise Exception("Content size not in given range")
+                if new_ciff.content_size == 0:
+                    raise Exception("Content size is 0")
 
                 # read the width
                 width = ciff_file.read(8)
@@ -250,6 +267,8 @@ class CIFF:
                 # Question: is this check necessary?
                 if new_ciff.width < 0 or new_ciff.width > 2 ** 64 - 1:
                     raise Exception("Width not in given range")
+                if new_ciff.width == 0:
+                    raise Exception("Width is 0")
 
                 # read the height
                 height = ciff_file.read(8)
@@ -266,6 +285,8 @@ class CIFF:
                 # Question: is this check necessary?
                 if new_ciff.height < 0 or new_ciff.height > 2 ** 64 - 1:
                     raise Exception("Height not in given range")
+                if new_ciff.height == 0:
+                    raise Exception("Height is 0")
 
                 # TODO: content size must equal width*height*3
                 width = int.from_bytes(width, "little")
@@ -345,5 +366,6 @@ class CIFF:
 
         except Exception as e:
             new_ciff.is_valid = False
+            new_ciff.error_message = e
 
         return new_ciff
