@@ -11,15 +11,15 @@ class CIFF:
     """
 
     def __init__(self, 
-                 magic_chars = "CIFF", 
-                 header_size_long = 0, 
-                 content_size_long = 0, 
-                 width_long = 0, 
-                 height_long = 0, 
-                 caption_string = "", 
-                 tags_list = None, 
-                 pixels_list = None
-                 ):
+                 magic_chars: str = "CIFF", 
+                 header_size_long: int = 0, 
+                 content_size_long: int = 0, 
+                 width_long: int = 0, 
+                 height_long: int = 0, 
+                 caption_string: str = "", 
+                 tags_list: list[str]  = [], 
+                 pixels_list: list[str] = []
+                 ) -> None:
         """
         Constructor for CIFF images
 
@@ -39,15 +39,9 @@ class CIFF:
         self._height = height_long
         self._caption = caption_string
         
-        if tags_list is None:
-            self._tags = []
-        else:
-            self._tags = tags_list
+        self._tags = tags_list
         
-        if pixels_list is None:
-            self._pixels = []
-        else:
-            self._pixels = pixels_list
+        self._pixels = pixels_list
 
         self._is_valid = True
 
@@ -56,7 +50,7 @@ class CIFF:
     #
 
     @property
-    def is_valid(self):
+    def is_valid(self) -> bool:
         """
         A flag indicating whether the the CIFF image conforms
         with the specification or not
@@ -66,11 +60,11 @@ class CIFF:
         return self._is_valid
 
     @is_valid.setter
-    def is_valid(self, value):
+    def is_valid(self, value: bool) -> None:
         self._is_valid = value
 
     @property
-    def magic(self):
+    def magic(self) -> str:
         """
         The parsed magic characters
 
@@ -79,11 +73,11 @@ class CIFF:
         return self._magic
 
     @magic.setter
-    def magic(self, value):
+    def magic(self, value: str) -> None:
         self._magic = value
 
     @property
-    def header_size(self):
+    def header_size(self) -> int:
         """
         The parsed header size
 
@@ -92,11 +86,11 @@ class CIFF:
         return self._header_size
 
     @header_size.setter
-    def header_size(self, value):
+    def header_size(self, value: int) -> None:
         self._header_size = value
 
     @property
-    def content_size(self):
+    def content_size(self) -> int:
         """
         The parsed content size
 
@@ -105,14 +99,14 @@ class CIFF:
         return self._content_size
 
     @content_size.setter
-    def content_size(self, value):
+    def content_size(self, value: int) -> None:
         """
         Setter function for the content size
         """
         self._content_size = value
 
     @property
-    def width(self):
+    def width(self) -> int:
         """
         The parsed width of the image
 
@@ -121,11 +115,11 @@ class CIFF:
         return self._width
 
     @width.setter
-    def width(self, value):
+    def width(self, value: int) -> None:
         self._width = value
 
     @property
-    def height(self):
+    def height(self) -> int:
         """
         The parsed height of the image
 
@@ -134,11 +128,11 @@ class CIFF:
         return self._height
 
     @height.setter
-    def height(self, value):
+    def height(self, value: int) -> None:
         self._height = value
 
     @property
-    def caption(self):
+    def caption(self) -> str:
         """
         The parsed image caption
 
@@ -147,11 +141,11 @@ class CIFF:
         return self._caption
 
     @caption.setter
-    def caption(self, value):
+    def caption(self, value: str) -> None:
         self._caption = value
 
     @property
-    def tags(self):
+    def tags(self) -> list:
         """
         The parsed list of tags
 
@@ -160,11 +154,11 @@ class CIFF:
         return self._tags
 
     @tags.setter
-    def tags(self, value):
+    def tags(self, value: list) -> None:
         self._tags = value
 
     @property
-    def pixels(self):
+    def pixels(self) -> list:
         """
         The parsed pixels
 
@@ -173,7 +167,7 @@ class CIFF:
         return self._pixels
 
     @pixels.setter
-    def pixels(self, value):
+    def pixels(self, value: list) -> None:
         self._pixels = value
 
     #
@@ -181,7 +175,7 @@ class CIFF:
     #
 
     @staticmethod
-    def parse_ciff_file(file_path):
+    def parse_ciff_file(file_path: str) :
         """
         Parses a CIFF file and constructs the corresponding object
 
@@ -298,7 +292,7 @@ class CIFF:
                 for tag in tags:
                     if tag[-1] != '\0':
                         raise Exception("Tag terminating character error")
-                new_ciff.tags = tag
+                #new_ciff.tags = tag ------- HIBAS SOR
 
                 # read the pixels
                 while bytes_read < new_ciff.header_size+new_ciff.content_size:
