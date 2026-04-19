@@ -247,7 +247,10 @@ class CIFF:
                     raise Exception("Invalid hight value")
 
                 #TODO: maybe something is missing here
-
+                width = int.from_bytes(width, "little")
+                height = int.from_bytes(height, "little")
+                if new_ciff.content_size != width * height * 3:
+                    raise Exception("Content size is not equal to width * height * 3")
                 # read the name of the image character by character
                 caption = ""
                 c = ciff_file.read(1)
