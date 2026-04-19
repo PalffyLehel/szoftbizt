@@ -210,6 +210,8 @@ class CIFF:
                 new_ciff.header_size = struct.unpack("Q", h_size)[0]
                 
                 #TODO: maybe something is missing here
+                if new_ciff.header_size < 38 or new_ciff.header_size > 2 ** 64 - 1:
+                    raise Exception("Header size not in the proper range")
 
                 # read the content size
                 c_size = ciff_file.read(8)
@@ -251,6 +253,7 @@ class CIFF:
                 height = int.from_bytes(height, "little")
                 if new_ciff.content_size != width * height * 3:
                     raise Exception("Content size is not equal to width * height * 3")
+                
                 # read the name of the image character by character
                 caption = ""
                 c = ciff_file.read(1)
